@@ -47,6 +47,7 @@ export default function Navbar() {
 									data-bs-toggle="dropdown"
 									aria-expanded="false"
 								>
+									<i className="fa-solid fa-circle-user"></i>&nbsp;
 									{authContext.user?.firstName} {authContext.user?.lastName}
 								</a>
 								<ul className="dropdown-menu">

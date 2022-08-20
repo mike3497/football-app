@@ -19,12 +19,12 @@ export default function Signin() {
 		setErrorMessage('');
 
 		const result = await signIn(username, password);
-		if (result.data.token) {
-			authContext.signIn(result.data.token);
+		if (result.token) {
+			authContext.signIn(result.token);
 			navigate('/');
 		} else {
 			setButtonDisabled(false);
-			setErrorMessage(result.data.message);
+			setErrorMessage(result.message);
 		}
 	}
 

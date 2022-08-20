@@ -1,11 +1,14 @@
 import axios from 'axios';
 
 export async function getPicks(token) {
-	const response = await axios.get('http://localhost:3000/api/picks', {
-		headers: {
-			Authorization: `Bearer ${token}`,
-		},
-	});
+	const response = await axios.get(
+		`${process.env.REACT_APP_API_BASE_URL}/picks`,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	);
 	return response.data;
 }
 
@@ -15,7 +18,7 @@ export async function addPick(token, gameId, teamId) {
 		teamId,
 	};
 	const response = await axios.post(
-		'http://localhost:3000/api/picks',
+		`${process.env.REACT_APP_API_BASE_URL}/picks`,
 		JSON.stringify(body),
 		{
 			headers: {

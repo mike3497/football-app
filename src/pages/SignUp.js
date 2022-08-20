@@ -21,8 +21,8 @@ export default function Signup() {
 		setErrorMessage('');
 
 		const result = await signUp(username, password, firstName, lastName);
-		if (result.data.token) {
-			authContext.signIn(result.data.token);
+		if (result.token) {
+			authContext.signIn(result.token);
 			navigate('/');
 		} else {
 			setButtonDisabled(false);

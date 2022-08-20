@@ -13,29 +13,20 @@ export const AuthContextProvider = (props) => {
 	const initialToken = localStorage.getItem('token');
 
 	const [token, setToken] = useState(initialToken);
-	const [user, setUser] = useState(getUser());
+	const [user, setUser] = useState(initialToken ? jwtDecode(initialToken) : {});
 
 	const userIsLoggedIn = !!token;
 
 	function handleSignIn(token) {
 		setToken(token);
 		localStorage.setItem('token', token);
-		setUser(getUser());
+		setUser(jwtDecode(token));
 	}
 
 	function handleSignOut() {
 		setToken(null);
 		localStorage.removeItem('token');
 		setUser(null);
-	}
-
-	function getUser() {
-		if (!token) {
-			return null;
-		}
-
-		const user = jwtDecode(token);
-		return user;
 	}
 
 	const contextValue = {

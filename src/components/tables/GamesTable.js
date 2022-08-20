@@ -2,8 +2,6 @@ import React from 'react';
 import GamesTableRow from './GamesTableRow';
 
 export default function GamesTable({ games, picks }) {
-	console.log(picks);
-
 	return (
 		<div className="table-responsive">
 			<table className="table table-bordered">
