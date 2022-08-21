@@ -15,6 +15,7 @@ export default function GamesTable({ games, picks }) {
 				<tbody>
 					{games.map((game) => (
 						<GamesTableRow
+							key={game._id}
 							game={game}
 							pick={picks.find((pick) => pick.gameId === game._id)}
 						/>
