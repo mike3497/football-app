@@ -1,31 +1,42 @@
 import axios from 'axios';
 
 export async function getPicks(token) {
-	const response = await axios.get(
-		`${process.env.REACT_APP_API_BASE_URL}/picks`,
-		{
+	try {
+		const url = `${process.env.REACT_APP_API_BASE_URL}/api/picks`;
+		const response = await axios.get(url, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
+		});
+		return response.data;
+	} catch (error) {
+		if (!error.response.data) {
+			return { error: error.message };
 		}
-	);
-	return response.data;
+
+		return { error: error.response.data.message };
+	}
 }
 
 export async function addPick(token, gameId, teamId) {
-	const body = {
-		gameId,
-		teamId,
-	};
-	const response = await axios.post(
-		`${process.env.REACT_APP_API_BASE_URL}/picks`,
-		JSON.stringify(body),
-		{
+	try {
+		const url = `${process.env.REACT_APP_API_BASE_URL}/api/picks`;
+		const body = {
+			gameId,
+			teamId,
+		};
+		const response = await axios.post(url, JSON.stringify(body), {
 			headers: {
 				Authorization: `Bearer ${token}`,
 				'Content-Type': 'application/json',
 			},
+		});
+		return response.data;
+	} catch (error) {
+		if (!error.response.data) {
+			return { error: error.message };
 		}
-	);
-	return response.data;
+
+		return { error: error.response.data.message };
+	}
 }

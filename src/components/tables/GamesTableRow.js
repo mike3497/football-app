@@ -5,7 +5,13 @@ import { addPick } from '../../services/picks-service';
 export default function GamesTableRow({ game, pick }) {
 	const authContext = useContext(AuthContext);
 
+	const gameDate = new Date(game.date);
+	const currentDate = new Date();
+
 	const [selectedValue, setSelectedValue] = useState(pick?.teamId || '');
+	const [disabled, setDisabled] = useState(
+		currentDate > subtractHours(gameDate, 12) ? true : false
+	);
 
 	async function handleChange(e) {
 		const teamId = e.target.value;
@@ -13,7 +19,13 @@ export default function GamesTableRow({ game, pick }) {
 
 		setSelectedValue(teamId);
 
-		await addPick(authContext.token, gameId, teamId);
+		const result = await addPick(authContext.token, gameId, teamId);
+		console.log(result);
+	}
+
+	function subtractHours(date, hours) {
+		date.setHours(date.getHours() - hours);
+		return date;
 	}
 
 	return (
@@ -30,6 +42,7 @@ export default function GamesTableRow({ game, pick }) {
 						onChange={handleChange}
 						value={game.homeTeamId}
 						data-game-id={game._id}
+						disabled={disabled}
 					/>
 					<label
 						className="form-check-label"
@@ -50,6 +63,7 @@ export default function GamesTableRow({ game, pick }) {
 						onChange={handleChange}
 						value={game.awayTeamId}
 						data-game-id={game._id}
+						disabled={disabled}
 					/>
 					<label
 						className="form-check-label"
@@ -59,6 +73,7 @@ export default function GamesTableRow({ game, pick }) {
 					</label>
 				</div>
 			</td>
+			<td>{game.winningTeam}</td>
 		</tr>
 	);
 }

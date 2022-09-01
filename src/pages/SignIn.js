@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signIn } from '../services/user-service';
 import AuthContext from '../contexts/AuthContext';
+import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 
 export default function Signin() {
 	const authContext = useContext(AuthContext);
@@ -21,59 +22,63 @@ export default function Signin() {
 		const result = await signIn(username, password);
 		if (result.token) {
 			authContext.signIn(result.token);
+			setErrorMessage('');
 			navigate('/');
 		} else {
-			setButtonDisabled(false);
 			setErrorMessage(result.message);
 		}
+
+		setButtonDisabled(false);
 	}
 
 	return (
-		<div className="container">
-			<div className="row justify-content-center">
-				<div className="col-sm-4">
-					<h1>Sign In</h1>
+		<Container className="mt-4">
+			<Row className="justify-content-center">
+				<Col sm={4}>
+					<Card>
+						<Card.Body>
+							<h1>Sign In</h1>
 
-					{errorMessage && (
-						<div className="alert alert-danger" role="alert">
-							<i className="fa-solid fa-circle-exclamation"></i> {errorMessage}
-						</div>
-					)}
+							{errorMessage && (
+								<div className="alert alert-danger" role="alert">
+									<i className="fa-solid fa-circle-exclamation"></i>{' '}
+									{errorMessage}
+								</div>
+							)}
 
-					<form onSubmit={handleFormSubmit}>
-						<div className="mb-2">
-							<label className="form-label">Username</label>
-							<input
-								className="form-control"
-								type="username"
-								value={username}
-								onChange={(e) => setUsername(e.target.value)}
-							/>
-						</div>
-						<div className="mb-2">
-							<label className="form-label">Password</label>
-							<input
-								className="form-control"
-								type="password"
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-							/>
-						</div>
-
-						<button
-							className="btn btn-primary w-100 mb-2"
-							type="submit"
-							disabled={buttonDisabled}
-						>
-							Sign in
-						</button>
-
-						<p className="text-center small">
-							Need an account? <Link to="/sign-up">Sign up</Link>
-						</p>
-					</form>
-				</div>
-			</div>
-		</div>
+							<Form onSubmit={handleFormSubmit}>
+								<Form.Group className="mb-3" controlId="txt-username">
+									<Form.Label>Username</Form.Label>
+									<Form.Control
+										type="text"
+										value={username}
+										onChange={(e) => setUsername(e.target.value)}
+									/>
+								</Form.Group>
+								<Form.Group className="mb-3" controlId="txt-password">
+									<Form.Label>Password</Form.Label>
+									<Form.Control
+										type="password"
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
+									/>
+								</Form.Group>
+								<Button
+									variant="primary"
+									className="w-100 mb-2"
+									type="submit"
+									disabled={buttonDisabled}
+								>
+									Sign in
+								</Button>
+								<p className="text-center small mb-0">
+									Need an account? <Link to="/sign-up">Sign up</Link>
+								</p>
+							</Form>
+						</Card.Body>
+					</Card>
+				</Col>
+			</Row>
+		</Container>
 	);
 }
