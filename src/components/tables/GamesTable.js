@@ -9,10 +9,14 @@ export default function GamesTable() {
 	const authContext = useContext(AuthContext);
 
 	const [gamesData, setGamesData] = useState([]);
-	const [picksData, setPicksData] = useState([]);
-	const [week, setWeek] = useState(1);
+	const [gamesIsLoading, setGamesIsLoading] = useState(false);
+	const [gamesError, setGamesError] = useState(null);
 
-	const [loading, setLoading] = useState(false);
+	const [picksData, setPicksData] = useState([]);
+	const [picksIsLoading, setPicksIsLoading] = useState(false);
+	const [picksError, setPicksError] = useState(null);
+
+	const [week, setWeek] = useState(1);
 
 	useEffect(() => {
 		getGamesData();
@@ -20,23 +24,23 @@ export default function GamesTable() {
 	}, [week]);
 
 	async function getGamesData() {
-		setLoading(true);
+		setGamesIsLoading(true);
 		const data = await getGames(authContext.token, week);
 		if (data.error) {
 			return;
 		}
 		setGamesData(data);
-		setLoading(false);
+		setGamesIsLoading(false);
 	}
 
 	async function getPicksData() {
-		setLoading(true);
+		setPicksIsLoading(true);
 		const data = await getPicks(authContext.token);
 		if (data.error) {
 			return;
 		}
 		setPicksData(data);
-		setLoading(false);
+		setPicksIsLoading(false);
 	}
 
 	return (
@@ -45,8 +49,6 @@ export default function GamesTable() {
 				<h3>Games</h3>
 
 				<Fragment>
-					{/* <p className="small text-muted">Last Updated: 8/22/2022 10:00PM</p> */}
-
 					<FloatingLabel className="mb-3" controlId="select-week" label="Week">
 						<Form.Select onChange={(e) => setWeek(e.target.value)} value={week}>
 							<option value="1">1</option>
@@ -61,38 +63,46 @@ export default function GamesTable() {
 							<option value="10">10</option>
 							<option value="11">11</option>
 							<option value="12">12</option>
+							<option value="13">13</option>
 						</Form.Select>
 					</FloatingLabel>
 
-					<Table striped bordered hover responsive>
-						<thead>
-							<tr>
-								<th>Date</th>
-								<th>Home</th>
-								<th>Away</th>
-								<th>Winner</th>
-							</tr>
-						</thead>
-						<tbody>
-							{loading && (
-								<div className="d-flex justify-content-center my-4">
-									<div className="spinner-border" role="status">
-										<span className="visually-hidden">Loading...</span>
-									</div>
+					{gamesIsLoading && picksIsLoading && (
+						<Fragment>
+							<div className="d-flex justify-content-center my-4">
+								<div className="spinner-border" role="status">
+									<span className="visually-hidden">Loading...</span>
 								</div>
-							)}
+							</div>
+							<div className="text-center">Loading...</div>
+						</Fragment>
+					)}
 
-							{!loading &&
-								gamesData.map((game) => (
+					{!gamesIsLoading && !picksIsLoading && gamesData.length > 0 && (
+						<Table striped bordered hover responsive>
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Home</th>
+									<th>Away</th>
+									<th>Winner</th>
+								</tr>
+							</thead>
+							<tbody>
+								{gamesData.map((game) => (
 									<GamesTableRow
 										key={game._id}
 										game={game}
 										pick={picksData.find((pick) => pick.game === game._id)}
 									/>
 								))}
-						</tbody>
-					</Table>
-					{/* <p className="small text-muted">Last Updated: 8/22/2022 10:00PM</p> */}
+							</tbody>
+						</Table>
+					)}
+
+					{!gamesIsLoading && !picksIsLoading && gamesData.length === 0 && (
+						<div className="text-center">No games found.</div>
+					)}
 				</Fragment>
 			</Card.Body>
 		</Card>

@@ -10,7 +10,7 @@ export default function Home() {
 					<LeaderboardTable />
 				</Col>
 			</Row>
-			<Row className="mb-4">
+			<Row>
 				<Col>
 					<GamesTable />
 				</Col>
