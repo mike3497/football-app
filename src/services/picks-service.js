@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export async function getPicks(token) {
+export async function getPicks(token, userId) {
 	try {
-		const url = `${process.env.REACT_APP_API_BASE_URL}/api/picks`;
+		const url = `${process.env.REACT_APP_API_BASE_URL}/api/picks?userId=${userId}`;
 		const response = await axios.get(url, {
 			headers: {
 				Authorization: `Bearer ${token}`,
