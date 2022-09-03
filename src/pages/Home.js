@@ -14,7 +14,6 @@ export default function Home() {
 			<Row>
 				<Col>
 					<GamesTable />
-					<PicksTable />
 				</Col>
 			</Row>
 		</Container>
