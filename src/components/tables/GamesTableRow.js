@@ -18,9 +18,9 @@ export default function GamesTableRow({ game, pick }) {
 		const gameId = e.target.dataset.gameId;
 
 		setSelectedValue(teamId);
-
+		setDisabled(true);
 		const result = await addPick(authContext.token, gameId, teamId);
-		console.log(result);
+		setDisabled(false);
 	}
 
 	function subtractHours(date, hours) {
