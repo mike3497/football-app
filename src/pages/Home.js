@@ -1,6 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import GamesTable from '../components/tables/GamesTable';
 import LeaderboardTable from '../components/tables/LeaderboardTable';
+import PicksTable from '../components/tables/PicksTable';
 
 export default function Home() {
 	return (
@@ -13,6 +14,7 @@ export default function Home() {
 			<Row>
 				<Col>
 					<GamesTable />
+					<PicksTable />
 				</Col>
 			</Row>
 		</Container>

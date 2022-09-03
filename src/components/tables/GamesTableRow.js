@@ -75,6 +75,8 @@ export default function GamesTableRow({ game, pick }) {
 					</label>
 				</div>
 			</td>
+			<td>{game.homeTeamScore}</td>
+			<td>{game.awayTeamScore}</td>
 			<td>{game.winningTeam}</td>
 		</tr>
 	);

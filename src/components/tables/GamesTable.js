@@ -85,6 +85,8 @@ export default function GamesTable() {
 									<th>Date</th>
 									<th>Home</th>
 									<th>Away</th>
+									<th>Home Score</th>
+									<th>Away Score</th>
 									<th>Winner</th>
 								</tr>
 							</thead>
