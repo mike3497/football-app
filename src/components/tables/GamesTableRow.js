@@ -10,7 +10,9 @@ export default function GamesTableRow({ game, pick }) {
 
 	const [selectedValue, setSelectedValue] = useState(pick?.teamId || '');
 	const [disabled, setDisabled] = useState(
-		currentDate > subtractHours(gameDate, process.env.PICK_HOURS) ? true : false
+		currentDate > subtractHours(gameDate, process.env.REACT_APP_PICK_HOURS)
+			? true
+			: false
 	);
 
 	async function handleChange(e) {
