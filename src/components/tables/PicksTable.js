@@ -30,6 +30,24 @@ export default function PicksTable({ userId }) {
 	return (
 		<Card>
 			<Card.Body>
+				<FloatingLabel className="mb-3" controlId="select-week" label="Week">
+					<Form.Select onChange={(e) => setWeek(e.target.value)} value={week}>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+					</Form.Select>
+				</FloatingLabel>
+
 				{isLoading && (
 					<Fragment>
 						<div className="d-flex justify-content-center my-4">
@@ -43,33 +61,6 @@ export default function PicksTable({ userId }) {
 
 				{!isLoading && data.length > 0 && (
 					<Fragment>
-						<h3>
-							{data[0].user.firstName} {data[0].user.lastName} Picks
-						</h3>
-						<FloatingLabel
-							className="mb-3"
-							controlId="select-week"
-							label="Week"
-						>
-							<Form.Select
-								onChange={(e) => setWeek(e.target.value)}
-								value={week}
-							>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-								<option value="13">13</option>
-							</Form.Select>
-						</FloatingLabel>
 						<Table className="table-layout-fixed" striped bordered responsive>
 							<thead>
 								<tr>
@@ -90,7 +81,7 @@ export default function PicksTable({ userId }) {
 				)}
 
 				{!isLoading && data.length === 0 && (
-					<p className="mb-0">No picks found.</p>
+					<p className="text-center mb-0">No picks found.</p>
 				)}
 			</Card.Body>
 		</Card>
