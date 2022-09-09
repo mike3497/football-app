@@ -3,3 +3,7 @@ body {
 }
 
 .table { margin-bottom: 0px !important; }
+
+.table-layout-fixed {
+    table-layout: fixed;
+}

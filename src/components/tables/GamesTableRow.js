@@ -30,20 +30,38 @@ export default function GamesTableRow({ game, pick }) {
 		return date;
 	}
 
+	let color = '';
+
+	if (pick && pick.game.winningTeamId) {
+		let pickedTeam = '';
+
+		if (pick.teamId === pick.game.homeTeamId) {
+			pickedTeam = pick.game.homeTeam;
+		} else if (pick.teamId === pick.game.awayTeamId) {
+			pickedTeam = pick.game.awayTeam;
+		}
+
+		color = '#F7DEDE';
+
+		if (pick.teamId === pick.game.winningTeamId) {
+			color = '#F9FCEE';
+		}
+	}
+
 	return (
-		<tr>
+		<tr style={{ backgroundColor: color }}>
 			<td>{new Date(game.date).toLocaleString()}</td>
 			<td>
 				<div className="form-check">
 					<input
 						className="form-check-input"
 						type="radio"
-						name={`radio-${game._id}`}
+						name={`radio-${game.id}`}
 						id={`radio-${game.homeTeamId}`}
 						checked={selectedValue === game.homeTeamId}
 						onChange={handleChange}
 						value={game.homeTeamId}
-						data-game-id={game._id}
+						data-game-id={game.id}
 						disabled={disabled}
 					/>
 					<label
@@ -59,12 +77,12 @@ export default function GamesTableRow({ game, pick }) {
 					<input
 						className="form-check-input"
 						type="radio"
-						name={`radio-${game._id}`}
+						name={`radio-${game.id}`}
 						id={`radio-${game.awayTeamId}`}
 						checked={selectedValue === game.awayTeamId}
 						onChange={handleChange}
 						value={game.awayTeamId}
-						data-game-id={game._id}
+						data-game-id={game.id}
 						disabled={disabled}
 					/>
 					<label

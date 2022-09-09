@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import { Fragment } from 'react';
 import Admin from './pages/Admin';
+import UserPicks from './pages/UserPicks';
 
 function App() {
 	return (
@@ -19,6 +20,14 @@ function App() {
 					element={
 						<PrivateRoute>
 							<Home />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path="/picks/:userId"
+					element={
+						<PrivateRoute>
+							<UserPicks />
 						</PrivateRoute>
 					}
 				/>

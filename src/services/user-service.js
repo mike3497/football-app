@@ -43,3 +43,21 @@ export async function signIn(username, password) {
 		return error;
 	}
 }
+
+export async function getUser(token, userId) {
+	const url = `${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`;
+	try {
+		const response = await axios.get(url, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			},
+		});
+		return response.data;
+	} catch (error) {
+		if (error.response.data) {
+			return error.response.data;
+		}
+		return error;
+	}
+}

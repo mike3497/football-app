@@ -35,7 +35,7 @@ export default function GamesTable() {
 
 	async function getPicksData() {
 		setPicksIsLoading(true);
-		const data = await getPicks(authContext.token);
+		const data = await getPicks(authContext.token, authContext.user.id);
 		if (data.error) {
 			return;
 		}
@@ -79,7 +79,13 @@ export default function GamesTable() {
 					)}
 
 					{!gamesIsLoading && !picksIsLoading && gamesData.length > 0 && (
-						<Table striped bordered hover responsive>
+						<Table
+							className="table-layout-fixed"
+							striped
+							bordered
+							hover
+							responsive
+						>
 							<thead>
 								<tr>
 									<th>Date</th>
@@ -93,9 +99,9 @@ export default function GamesTable() {
 							<tbody>
 								{gamesData.map((game) => (
 									<GamesTableRow
-										key={game._id}
+										key={game.id}
 										game={game}
-										pick={picksData.find((pick) => pick.game === game._id)}
+										pick={picksData.find((pick) => pick.gameId === game.id)}
 									/>
 								))}
 							</tbody>
