@@ -1,8 +1,17 @@
 import axios from 'axios';
 
-export async function getPicks(token, userId) {
+export async function getPicks(token, userId, week) {
 	try {
-		const url = `${process.env.REACT_APP_API_BASE_URL}/api/picks?userId=${userId}`;
+		let url = new URL(`${process.env.REACT_APP_API_BASE_URL}/api/picks`);
+
+		if (userId) {
+			url.searchParams.append('userId', userId);
+		}
+
+		if (week) {
+			url.searchParams.append('week', week);
+		}
+
 		const response = await axios.get(url, {
 			headers: {
 				Authorization: `Bearer ${token}`,

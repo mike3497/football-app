@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
 import { getLeaderboard } from '../../services/leaderboard-service';
 
@@ -30,40 +31,43 @@ export default function LeaderboardTable() {
 				<h3>Leaderboard</h3>
 
 				{loading && (
-					<div className="d-flex justify-content-center my-4">
-						<div className="spinner-border" role="status">
-							<span className="visually-hidden">Loading...</span>
+					<Fragment>
+						<div className="d-flex justify-content-center my-4">
+							<div className="spinner-border" role="status">
+								<span className="visually-hidden">Loading...</span>
+							</div>
 						</div>
-					</div>
+						<div className="text-center">Loading...</div>
+					</Fragment>
 				)}
 
 				{!loading && (
-					<div className="table-responsive">
-						<table className="table table-bordered">
-							<thead>
-								<tr>
-									<th>Place</th>
-									<th>Name</th>
-									<th>Correct Picks</th>
-									<th>Total Picks</th>
-									<th>Correct %</th>
-								</tr>
-							</thead>
-							<tbody>
-								{leaderboardData.map((row, index) => (
-									<tr key={row.user._id}>
-										<td>{index + 1}</td>
-										<td>
+					<Table className="table-layout-fixed" striped bordered responsive>
+						<thead>
+							<tr>
+								<th>Place</th>
+								<th>Name</th>
+								<th>Correct Picks</th>
+								<th>Total Picks</th>
+								<th>Correct %</th>
+							</tr>
+						</thead>
+						<tbody>
+							{leaderboardData.map((row, index) => (
+								<tr key={row.user.id}>
+									<td>{index + 1}</td>
+									<td>
+										<Link to={`/picks/${row.user.id}`}>
 											{row.user.firstName} {row.user.lastName}
-										</td>
-										<td>{row.correctPicks}</td>
-										<td>{row.totalPicks}</td>
-										<td>{row.correctPicksPercentage}%</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-					</div>
+										</Link>
+									</td>
+									<td>{row.correctPicks}</td>
+									<td>{row.totalPicks}</td>
+									<td>{row.correctPicksPercentage}%</td>
+								</tr>
+							))}
+						</tbody>
+					</Table>
 				)}
 			</Card.Body>
 		</Card>
