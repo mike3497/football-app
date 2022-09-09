@@ -42,7 +42,7 @@ export default function LeaderboardTable() {
 				)}
 
 				{!loading && (
-					<Table className="table-layout-fixed" striped bordered responsive>
+					<Table striped bordered responsive>
 						<thead>
 							<tr>
 								<th>Place</th>

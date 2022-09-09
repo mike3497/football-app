@@ -61,7 +61,7 @@ export default function PicksTable({ userId }) {
 
 				{!isLoading && data.length > 0 && (
 					<Fragment>
-						<Table className="table-layout-fixed" striped bordered responsive>
+						<Table striped bordered responsive>
 							<thead>
 								<tr>
 									<td>Date</td>

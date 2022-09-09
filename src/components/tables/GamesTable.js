@@ -79,13 +79,7 @@ export default function GamesTable() {
 					)}
 
 					{!gamesIsLoading && !picksIsLoading && gamesData.length > 0 && (
-						<Table
-							className="table-layout-fixed"
-							striped
-							bordered
-							hover
-							responsive
-						>
+						<Table striped bordered hover responsive>
 							<thead>
 								<tr>
 									<th>Date</th>
