@@ -67,8 +67,6 @@ export default function PicksTable({ userId }) {
 									<td>Date</td>
 									<td>Home</td>
 									<td>Away</td>
-									<td>Pick</td>
-									<td>Winner</td>
 								</tr>
 							</thead>
 							<tbody>
