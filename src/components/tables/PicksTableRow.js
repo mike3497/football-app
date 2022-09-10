@@ -9,10 +9,14 @@ export default function PicksTableRow({ index, pick }) {
 		pickedTeam = pick.game.awayTeam;
 	}
 
-	let color = '#F7DEDE';
+	let color = '';
 
-	if (pick.teamId === pick.game.winningTeamId) {
-		color = '#F9FCEE';
+	if (pick && pick.game.winningTeamId) {
+		color = '#F7DEDE';
+
+		if (pick.teamId === pick.game.winningTeamId) {
+			color = '#F9FCEE';
+		}
 	}
 
 	return (

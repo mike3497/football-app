@@ -33,14 +33,6 @@ export default function GamesTableRow({ game, pick }) {
 	let color = '';
 
 	if (pick && pick.game.winningTeamId) {
-		let pickedTeam = '';
-
-		if (pick.teamId === pick.game.homeTeamId) {
-			pickedTeam = pick.game.homeTeam;
-		} else if (pick.teamId === pick.game.awayTeamId) {
-			pickedTeam = pick.game.awayTeam;
-		}
-
 		color = '#F7DEDE';
 
 		if (pick.teamId === pick.game.winningTeamId) {
