@@ -45,24 +45,22 @@ export default function LeaderboardTable() {
 					<Table striped bordered responsive>
 						<thead>
 							<tr>
-								<th>Place</th>
+								<th>Ranking</th>
 								<th>Name</th>
 								<th>Correct Picks</th>
-								<th>Total Picks</th>
 								<th>Correct %</th>
 							</tr>
 						</thead>
 						<tbody>
 							{leaderboardData.map((row, index) => (
 								<tr key={row.user.id}>
-									<td>{index + 1}</td>
+									<td>{row.ranking}</td>
 									<td>
 										<Link to={`/picks/${row.user.id}`}>
 											{row.user.firstName} {row.user.lastName}
 										</Link>
 									</td>
 									<td>{row.correctPicks}</td>
-									<td>{row.totalPicks}</td>
 									<td>{row.correctPicksPercentage}%</td>
 								</tr>
 							))}
