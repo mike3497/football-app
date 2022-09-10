@@ -60,7 +60,13 @@ export default function GamesTableRow({ game, pick }) {
 						className="form-check-label"
 						htmlFor={`radio-${game.homeTeamId}`}
 					>
-						{game.homeTeam}
+						<span
+							className={game.winningTeam === game.homeTeam ? 'fw-bolder' : ''}
+						>
+							{game.homeTeam}
+							<br />
+							{game.homeTeamScore}
+						</span>
 					</label>
 				</div>
 			</td>
@@ -81,13 +87,16 @@ export default function GamesTableRow({ game, pick }) {
 						className="form-check-label"
 						htmlFor={`radio-${game.awayTeamId}`}
 					>
-						{game.awayTeam}
+						<span
+							className={game.winningTeam === game.awayTeam ? 'fw-bolder' : ''}
+						>
+							{game.awayTeam}
+							<br />
+							{game.awayTeamScore}
+						</span>
 					</label>
 				</div>
 			</td>
-			<td>{game.homeTeamScore}</td>
-			<td>{game.awayTeamScore}</td>
-			<td>{game.winningTeam}</td>
 		</tr>
 	);
 }
