@@ -4,11 +4,9 @@ export default function PicksTableRow({ index, pick }) {
 	const game = pick.game;
 	const selectedValue = pick?.teamId || '';
 
-	let color = '';
+	let color = '#F7DEDE';
 
 	if (pick && pick.game.winningTeamId) {
-		color = '#F7DEDE';
-
 		if (pick.teamId === pick.game.winningTeamId) {
 			color = '#F9FCEE';
 		}
