@@ -32,10 +32,10 @@ export default function GamesTableRow({ game, pick }) {
 
 	let color = '';
 
-	if (pick && pick.game.winningTeamId) {
+	if (game.winningTeam) {
 		color = '#F7DEDE';
 
-		if (pick.teamId === pick.game.winningTeamId) {
+		if (pick && pick.teamId === pick.game.winningTeamId) {
 			color = '#F9FCEE';
 		}
 	}

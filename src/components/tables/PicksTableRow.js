@@ -1,15 +1,14 @@
 import React from 'react';
 
-export default function PicksTableRow({ index, pick }) {
-	const game = pick.game;
+export default function PicksTableRow({ game, pick }) {
 	const selectedValue = pick?.teamId || '';
 
 	let color = '';
 
-	if (pick && pick.game.winningTeamId) {
+	if (game.winningTeam) {
 		color = '#F7DEDE';
 
-		if (pick.teamId === pick.game.winningTeamId) {
+		if (pick && pick.teamId === pick.game.winningTeamId) {
 			color = '#F9FCEE';
 		}
 	}
@@ -22,10 +21,9 @@ export default function PicksTableRow({ index, pick }) {
 					<input
 						className="form-check-input"
 						type="radio"
+						name={`radio-${game.id}`}
 						checked={selectedValue === game.homeTeamId}
-						value={game.homeTeamId}
-						data-game-id={game.id}
-						disabled={true}
+						disabled
 					/>
 					<label
 						className="form-check-label"
@@ -46,9 +44,9 @@ export default function PicksTableRow({ index, pick }) {
 					<input
 						className="form-check-input"
 						type="radio"
+						name={`radio-${game.id}`}
 						checked={selectedValue === game.awayTeamId}
-						value={game.awayTeamId}
-						disabled={true}
+						disabled
 					/>
 					<label
 						className="form-check-label"
