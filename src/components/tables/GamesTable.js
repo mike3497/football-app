@@ -96,7 +96,6 @@ export default function GamesTable() {
 	return (
 		<Card>
 			<Card.Body>
-				<p>activeRequests: {activeRequests}</p>
 				<h3>Games</h3>
 
 				<Fragment>
