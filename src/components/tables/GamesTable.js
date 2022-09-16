@@ -9,12 +9,12 @@ export default function GamesTable() {
 	const authContext = useContext(AuthContext);
 
 	const [gamesData, setGamesData] = useState([]);
-	const [gamesIsLoading, setGamesIsLoading] = useState(false);
 	const [gamesError, setGamesError] = useState(null);
 
 	const [picksData, setPicksData] = useState([]);
-	const [picksIsLoading, setPicksIsLoading] = useState(false);
 	const [picksError, setPicksError] = useState(null);
+
+	const [activeRequests, setActiveRequests] = useState(0);
 
 	const [week, setWeek] = useState(getWeek());
 
@@ -24,23 +24,23 @@ export default function GamesTable() {
 	}, [week]);
 
 	async function getGamesData() {
-		setGamesIsLoading(true);
+		setActiveRequests((activeRequests) => activeRequests + 1);
 		const data = await getGames(authContext.token, week);
 		if (data.error) {
 			return;
 		}
 		setGamesData(data);
-		setGamesIsLoading(false);
+		setActiveRequests((activeRequests) => activeRequests - 1);
 	}
 
 	async function getPicksData() {
-		setPicksIsLoading(true);
+		setActiveRequests((activeRequests) => activeRequests + 1);
 		const data = await getPicks(authContext.token, authContext.user.id);
 		if (data.error) {
 			return;
 		}
 		setPicksData(data);
-		setPicksIsLoading(false);
+		setActiveRequests((activeRequests) => activeRequests - 1);
 	}
 
 	function getWeek() {
@@ -96,6 +96,7 @@ export default function GamesTable() {
 	return (
 		<Card>
 			<Card.Body>
+				<p>activeRequests: {activeRequests}</p>
 				<h3>Games</h3>
 
 				<Fragment>
@@ -117,7 +118,7 @@ export default function GamesTable() {
 						</Form.Select>
 					</FloatingLabel>
 
-					{gamesIsLoading && picksIsLoading && (
+					{activeRequests > 0 && (
 						<Fragment>
 							<div className="d-flex justify-content-center my-4">
 								<div className="spinner-border" role="status">
@@ -128,7 +129,7 @@ export default function GamesTable() {
 						</Fragment>
 					)}
 
-					{!gamesIsLoading && !picksIsLoading && gamesData.length > 0 && (
+					{activeRequests === 0 && gamesData.length > 0 && (
 						<Table striped bordered hover responsive>
 							<thead>
 								<tr>
@@ -149,7 +150,7 @@ export default function GamesTable() {
 						</Table>
 					)}
 
-					{!gamesIsLoading && !picksIsLoading && gamesData.length === 0 && (
+					{activeRequests === 0 && gamesData.length === 0 && (
 						<div className="text-center">No games found.</div>
 					)}
 				</Fragment>
